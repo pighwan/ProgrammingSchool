@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.springTest.model.PointDTO;
@@ -87,5 +88,18 @@ public class MainController {
 		// new ModelAndView(view(이 페이지로 이동), key(변수명), value(값))
 		return new ModelAndView("test/mav_result", "map", map);
 	}
-	// 
+	 
+	@RequestMapping("ajax.do")
+	public String ajax() {
+		return "test/ajax"; // ajax.jsp로 포워드
+	} // ajax
+	
+	// @ResponseBody : 데티러 자체를 리턴 => json 형식(pom.xml에 라이브러리 추가해야함)
+	// {"name":TV, "price":500000}
+	@RequestMapping("background.do")
+	public @ResponseBody ProductDTO background() {	
+		ProductDTO dto = new ProductDTO("TV", 500000);
+		return dto; // 데이터 자체를 리턴
+	} // background
+	
 } // class
