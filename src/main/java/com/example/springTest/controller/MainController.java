@@ -94,12 +94,30 @@ public class MainController {
 		return "test/ajax"; // ajax.jsp로 포워드
 	} // ajax
 	
-	// @ResponseBody : 데티러 자체를 리턴 => json 형식(pom.xml에 라이브러리 추가해야함)
+	// @ResponseBody : 데이터 자체를 리턴 => json 형식(pom.xml에 라이브러리 추가해야함)
 	// {"name":TV, "price":500000}
 	@RequestMapping("background.do")
 	public @ResponseBody ProductDTO background() {	
 		ProductDTO dto = new ProductDTO("TV", 500000);
 		return dto; // 데이터 자체를 리턴
 	} // background
+	
+	@RequestMapping("login.do")
+	public String login() {
+		return "test/login";
+	} // login
+	
+	@RequestMapping("login_result.do")
+	public String login_result(@RequestParam String id, String pw, Model model) {
+		String result = "";
+		if(id.equals("pig")&&pw.equals("1234")) {
+			result = "환영합니다";
+		}else {
+			result = "아이디 또는 비밀번호가 틀렸습니다.";
+		}
+		model.addAttribute("result", result);
+		return "test/login_result";
+	} //  login_result
+	
 	
 } // class
